@@ -2,14 +2,18 @@
 #
 # Table name: users
 #
-#  id         :bigint(8)        not null, primary key
-#  name       :string           not null
-#  email      :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id       :bigint(8)        not null, primary key
+#  username :string           not null
 #
 
 class User < ApplicationRecord
-  validates :name, presence: true
-  validates :email, presence: true
+  validates :username,presence:true, unique:true
+
+  has_many :artworks,
+  foreign_key: :artist_id,
+  class_name: :Artwork
+
+  has_many :artworks_shares,
+  foreign_key: :viewer_id
+
 end
